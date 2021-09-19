@@ -42,8 +42,8 @@ def run(weights='yolov5s.pt',  # model.pt path(s)
         augment=False,  # augmented inference
         visualize=False,  # visualize features
         update=False,  # update all models
-        # project='static',  # save results to project/name
         project='static/output_images',  # save results to project/name
+        # project='static',  # save results to project/name
         name='',  # save results to project/name
         exist_ok=True,  # existing project/name ok, do not increment
         line_thickness=3,  # bounding box thickness (pixels)
@@ -217,8 +217,7 @@ def parse_opt():
     parser.add_argument('--augment', action='store_true', help='augmented inference')
     parser.add_argument('--visualize', action='store_true', help='visualize features')
     parser.add_argument('--update', action='store_true', help='update all models')
-    # parser.add_argument('--project', default='static', help='save results to project/name')
-    parser.add_argument('--project', default='static/output_images', help='save results to project/name')
+    parser.add_argument('--project', default='static', help='save results to project/name')
     parser.add_argument('--name', default='', help='save results to project/name')
     parser.add_argument('--exist-ok', default=True, action='store_true', help='existing project/name ok, do not increment')
     parser.add_argument('--line-thickness', default=3, type=int, help='bounding box thickness (pixels)')

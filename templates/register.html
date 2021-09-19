@@ -1,0 +1,53 @@
+{% extends "layout.html" %}
+    {% block content %}
+    <div class="content-section">
+       
+           
+
+            <fieldset class="form-group">
+                <legend class="border-bottom mb-4">Join Today</legend>
+                <div class="form-group">
+
+                    <div class="links">
+                        <!-- <a href="{{ url_for('login') }}">Login</a> -->
+                        <!-- <a href="{{ url_for('register') }}" class="active">Register</a> -->
+                    </div>
+                    <form action="{{ url_for('register') }}" method="post" autocomplete="off">
+                        <div class="msg">{{ msg }}</div>
+                        <div class="" style="margin-left: 10px; border-bottom: 1px solid linear-gradient(#707cd2,#707cd2); width: 400px; ">
+                            <i class="fa fa-user"></i> 
+                            <input class="form-control form-control-line" type="text" name="username" placeholder="Username" id="username" required>
+                        </div><br>
+                        
+                        <div class="" style="margin-left: 10px; border-bottom: 1px solid linear-gradient(#707cd2,#707cd2); width: 400px;">
+                            <i class="fa fa-lock"></i> 
+                            <input class="form-control form-control-line"  type="password" name="password" placeholder="Password" id="password" required>
+                        </div><br>
+                        
+                        <div class="" style="margin-left: 10px; border-bottom: 1px solid linear-gradient(#707cd2,#707cd2); width: 400px;">
+                            <i class="fa fa-envelope"></i> 
+                            <input class="form-control form-control-line"  type="email" name="email" placeholder="Email" id="email" required>
+                        </div><br>
+                        
+                        <div class="form-group">
+                            <div class="col-sm-12">
+                                <input  class="btn btn-success" type="submit" value="Register">
+                            </div>
+                        </div>
+                       
+                    </form>
+                   
+            </fieldset>
+            <div class="form-group">
+               
+
+            </div>
+
+       
+    </div>
+
+    <div class="border-top pt-3">
+        <small class="text-muted">Already Have An Account? <a href="{{ url_for('login') }}">Sign in</a> </small>
+    </div>
+
+    {% endblock content %}
