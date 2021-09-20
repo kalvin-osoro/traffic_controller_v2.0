@@ -275,12 +275,13 @@ def detect():
         subprocess.run("dir", shell=True)
         subprocess.run(['python', 'detect.py', '--source', os.path.join(uploads_dir, secure_filename(video.filename))],shell=True)
 
-    # User is not loggedin redirect to login page
-    return redirect(url_for('login'))
+   
+        # return os.path.join(uploads_dir, secure_filename(video.filename))
+        obj = secure_filename(video.filename)
+        return obj
 
-    # return os.path.join(uploads_dir, secure_filename(video.filename))
-    obj = secure_filename(video.filename)
-    return obj
+     # User is not loggedin redirect to login page
+    return redirect(url_for('login'))
 
 @app.route('/return-files', methods=['GET'])
 def return_file():
@@ -297,7 +298,7 @@ def return_file():
     # User is not loggedin redirect to login page
     return redirect(url_for('login'))
 
-@app.route('/display/<filename>')
-def display_video(filename):
-	#print('display_video filename: ' + filename)
-	return redirect(url_for('static/video_1.mp4', code=200))
+# @app.route('/display/<filename>')
+# def display_video(filename):
+# 	#print('display_video filename: ' + filename)
+# 	return redirect(url_for('static/video_1.mp4', code=200))

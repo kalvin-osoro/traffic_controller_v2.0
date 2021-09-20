@@ -179,6 +179,32 @@
     <script src="static/js/waves.js"></script>
     <!-- Custom Theme JavaScript -->
     <script src="static/js/custom.min.js"></script>
+    <script>
+        $(document).ready(function () {
+          // File type validation
+          $("#fileInput").change(function () {
+            var fileLength = this.files.length;
+            var match = ["image/jpeg", "image/png", "image/jpg", "image/gif", "image/mp4"];
+            var i;
+            for (i = 0; i < fileLength; i++) {
+              var file = this.files[i];
+              var imagefile = file.type;
+              if (
+                !(
+                  imagefile == match[0] ||
+                  imagefile == match[1] ||
+                  imagefile == match[2] ||
+                  imagefile == match[3]
+                )
+              ) {
+                alert("Please select a valid image file (JPEG/JPG/PNG/GIF/mp4).");
+                $("#fileInput").val("");
+                return false;
+              }
+            }
+          });
+        });
+      </script>
 </body>
 
 </html>
