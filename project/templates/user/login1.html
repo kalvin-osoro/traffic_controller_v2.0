@@ -1,0 +1,50 @@
+{% extends "layout.html" %}
+    {% block content %}
+    <!-- <div class="content-section"> -->
+       
+        <div class="login"> 
+            <fieldset class="form-group">
+                <legend class="border-bottom mb-4">Login</legend>
+                
+                    
+                    
+                        <!-- <a href="{{ url_for('login') }}" class="active">Login</a> -->
+                        <!-- <a href="{{ url_for('register') }}">Register</a> -->
+                   
+                        <div class="msg">{{ msg }}</div>
+                    <form action="{{ url_for('login') }}" method="post">
+                        <div class="" style="margin-left: 10px; border-bottom: 1px solid linear-gradient(#707cd2,#707cd2); width: 400px; ">
+                            <i class="fa fa-user"> 
+                            <input class="form-control form-control-line" type="text" name="username" placeholder="Username" id="username" required>
+                        </i>
+                        </div><br>
+                        <div class="" style="margin-left: 10px; border-bottom: 1px solid linear-gradient(#707cd2,#707cd2); width: 400px;">
+                            <i class="fa fa-lock"></i> 
+                            <input class="form-control form-control-line"  type="password" name="password" placeholder="Password" id="password" required>
+                        </div><br>
+                       
+                        <div class="form-group">
+                            <div class="col-sm-12">
+                                <input  class="btn btn-success" type="submit" value="Login">
+                            </div><br>
+                        </div>
+                        
+                    </form>
+                
+            </fieldset>
+            
+            <small class="text-muted ml-3">
+                <a href="#">Forgot Password?</a>
+
+            </small>
+
+        
+        
+
+            <div class="border-top pt-3">
+                <small class="text-muted">Need An Account? <a href="{{ url_for('register') }}">Sign up</a> </small>
+            </div>
+        </div>
+    </div>
+
+    {% endblock content %}

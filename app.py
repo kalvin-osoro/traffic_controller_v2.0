@@ -2,10 +2,11 @@ from re import DEBUG, sub
 from flask import Flask, render_template, request, redirect, send_file, url_for, flash, redirect, session
 from flask_mysqldb import MySQL
 from datetime import datetime
-from flask_mail import Mail, Message
+from flask_mail import Message, Mail
 import MySQLdb.cursors
 import re
 from werkzeug.utils import secure_filename, send_from_directory
+from itsdangerous import URLSafeTimedSerializer
 
 import os
 import subprocess
@@ -19,20 +20,60 @@ app.config['MYSQL_USER'] = 'root'
 app.config['MYSQL_PASSWORD'] = ''
 app.config['MYSQL_DB'] = 'traffic_controller'
 
+
+ # main config
+SECRET_KEY = 'my_precious'
+SECURITY_PASSWORD_SALT = 'my_precious_two'
+DEBUG = False
+BCRYPT_LOG_ROUNDS = 13
+WTF_CSRF_ENABLED = True
+DEBUG_TB_ENABLED = False
+DEBUG_TB_INTERCEPT_REDIRECTS = False   
+
 app.config.update(
             DEBUG=True,
             #email settings
             MAIL_SERVER='smtp.gmail.com',
             MAIL_PORT=465,
+            MAIL_USE_TLS = False,
             MAIL_USE_SSL=True,
-            MAIL_USERNAME='',
-            MAIL_PASSWORD=''
+            MAIL_USERNAME='kalvinosoro@gmail.com',
+            MAIL_PASSWORD='Athena0057'
 
             )
 
 mail = Mail(app)
 
 mysql = MySQL(app)
+
+
+
+def generate_confirmation_token(email):
+    serializer = URLSafeTimedSerializer(app.config['SECRET_KEY'])
+    return serializer.dumps(email, salt=app.config['SECURITY_PASSWORD_SALT'])
+
+
+def confirm_token(token, expiration=3600):
+    serializer = URLSafeTimedSerializer(app.config['SECRET_KEY'])
+    try:
+        email = serializer.loads(
+            token,
+            salt=app.config['SECURITY_PASSWORD_SALT'],
+            max_age=expiration
+        )
+    except:
+        return False
+    return email
+
+
+def send_email(to, subject, template):
+    msg = Message(
+        subject,
+        recipients=[to],
+        html=template,
+        sender=app.config['MAIL_DEFAULT_SENDER']
+    )
+    mail.send(msg)
 
 
 uploads_dir = os.path.join(app.instance_path, 'uploads')
@@ -65,24 +106,24 @@ def profilia():
 
 @app.route("/dashboard")
 def dashboard():
-    # Check if user is loggedin
-    if 'loggedin' in session:
-        # User is loggedin show them the home page
-        return render_template('dashboard.html', title='User Dashboard', username=session['username'])
+    
+    # User is loggedin show them the home page
+    return render_template('dashboard.html', title='User Dashboard')
 
-    # User is not loggedin redirect to login page
-    return redirect(url_for('login'))
+   
 
 @app.route("/register", methods=['GET', 'POST'])
 def register():
     # Output message if something goes wrong...
     msg = ''
     # Check if "username", "password" and "email" POST requests exist (user submitted form)
-    if request.method == 'POST' and 'username' in request.form and 'password' in request.form and 'email' in request.form:
+    if request.method == 'POST' and 'username' in request.form and 'password' in request.form and 'email' in request.form and confirm_token:
         # Create variables for easy access
         username = request.form['username']
-        password = request.form['password']
         email = request.form['email']
+        password = request.form['password']
+        confirm_token = db.Column(db.Boolean, nullable=False, default=False)
+        confirmed_on = db.Column(db.DateTime, nullable=True)
          # Check if account exists using MySQL
         cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
         cursor.execute('SELECT * FROM users WHERE username = %s', (username,))
@@ -302,3 +343,5 @@ def return_file():
 # def display_video(filename):
 # 	#print('display_video filename: ' + filename)
 # 	return redirect(url_for('static/video_1.mp4', code=200))
+
+

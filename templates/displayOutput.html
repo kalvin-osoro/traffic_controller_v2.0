@@ -135,29 +135,16 @@
             <!-- Logo -->
             <a class="logo" href="{{ url_for('hello_world') }}">
               <!-- Logo icon image, you can use font-icon also --><b>
-                <!--This is dark logo icon--><img
-                  src="/static/plugins/images/admin-logo.png"
-                  alt="home"
-                  class="dark-logo"
-                /><!--This is light logo icon--><img
+                <!--This is dark logo icon-->
+               
+                <img
                   src="/static/plugins/images/admin-logo-dark.png"
                   alt="home"
                   class="light-logo"
                 />
               </b>
-              <!-- Logo text image you can use text also --><span
-                class="hidden-xs"
-              >
-                <!--This is dark logo text--><img
-                  src="/static/plugins/images/admin-text.png"
-                  alt="home"
-                  class="dark-logo"
-                /><!--This is light logo text--><img
-                  src="/static/plugins/images/admin-text-dark.png"
-                  alt="home"
-                  class="light-logo"
-                />
-              </span>
+              <!-- Logo text image you can use text also -->
+              
             </a>
           </div>
           <!-- /Logo -->
@@ -193,12 +180,12 @@
                 <li style="padding: 70px 0 0;">
                     <a href="{{ url_for('dashboard') }}" class="waves-effect"><i class="fa fa-clock-o fa-fw" aria-hidden="true"></i>Dashboard</a>
                 </li>
-                <li>
+                <!-- <li>
                     <a href="{{ url_for('register') }}" class="waves-effect"><i class="fa fa-arrow-circle" aria-hidden="true"></i>Register</a>
                 </li>
                 <li>
                     <a href="{{ url_for('login') }}" class="waves-effect"><i class="fa fa-arrow-circle-right" aria-hidden="true"></i>Login</a>
-                </li>
+                </li> -->
                 <li>
                     <a href="{{ url_for('profile') }}" class="waves-effect"><i class="fa fa-user fa-fw" aria-hidden="true"></i>Profile</a>
                 </li>
